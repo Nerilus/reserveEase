@@ -1,11 +1,26 @@
-const express = require("express")
+const express = require("express");
+const sequelize = require("./config/database");
+const Hotel = require('./models/Hotel');
+const Room = require('./models/Room');
+const hotelRoutes = require('./routes/hotelRoutes');
+
 const app = express();
-const port = 8080;
+require('dotenv').config();
 
-app.get('/', (req, res) => {
-    res.send('heloo world');
-})
 
-app.listen(port,()=>{
-    console.log(`app listinging`)
-})
+
+app.use(express.json());
+
+app.use('/api/hotels', hotelRoutes)
+
+
+
+sequelize.sync({ force: true }) 
+  .then(() => {
+    app.listen(8000, () => {
+      console.log('Server is running on port 8000');
+    });
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });

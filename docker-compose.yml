@@ -7,7 +7,13 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
-      - .env:/.env  # Monter le fichier .env
+      - .env:/app/.env
+    environment:
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
     depends_on:
       - db
 
@@ -21,8 +27,9 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     volumes:
-      - postgres_data:/var/lib/postgresql/data 
-      - ./migration/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+      - postgres_data:/var/lib/postgresql/data
+      - ./migration/dump.sql:/docker-entrypoint-initdb.d/dump.sql:ro
+
   adminer:
     image: adminer
     restart: always
