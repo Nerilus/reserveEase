@@ -14,8 +14,7 @@ app.use(express.json());
 app.use('/api/hotels', hotelRoutes)
 
 
-
-sequelize.sync({ force: true }) 
+sequelize.sync({ force: false }) 
   .then(() => {
     app.listen(8000, () => {
       console.log('Server is running on port 8000');
