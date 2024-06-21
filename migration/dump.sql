@@ -58,6 +58,6 @@ INSERT INTO rooms (title, price, max_people, description, room_numbers, created_
 ('Deluxe Suite', 300, 4, 'Spacious suite with sea view', '[{"number": 101, "unavailableDates": ["2024-07-01", "2024-07-02"]}, {"number": 102, "unavailableDates": ["2024-07-05"]}]', NOW(), NOW()),
 ('Standard Room', 120, 2, 'Comfortable room with city view', '[{"number": 201, "unavailableDates": []}, {"number": 202, "unavailableDates": ["2024-07-10"]}]', NOW(), NOW());
 
-INSERT INTO users (username, email, country, img, city, phone, password, is_admin, created_at, updated_at) VALUES
-('john_doe', 'john@example.com', 'USA', 'john.jpg', 'New York', '123-456-7890', 'password123', false, NOW(), NOW()),
-('jane_smith', 'jane@example.com', 'UK', 'jane.jpg', 'London', '987-654-3210', 'securepass', true, NOW(), NOW());
+-- INSERT INTO users (username, email, country, img, city, phone, password, is_admin, created_at, updated_at) VALUES
+-- ('john_doe', 'john@example.com', 'USA', 'john.jpg', 'New York', '123-456-7890', 'password123', false, NOW(), NOW()),
+-- ('jane_smith', 'jane@example.com', 'UK', 'jane.jpg', 'London', '987-654-3210', 'securepass', true, NOW(), NOW());

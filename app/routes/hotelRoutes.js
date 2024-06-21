@@ -6,7 +6,7 @@ router.get('/find', hotelController.getAllHotels);
 router.post('/', hotelController.createHotel);
 router.get('/:id', hotelController.getHotelById);
 router.delete('/:id', hotelController.deleteHotel);
-router.get("/",  hotelController.getHotels);
+// router.get("/",  hotelController.getHotels);
 
  
 

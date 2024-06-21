@@ -1,20 +1,23 @@
 const express = require("express");
 const sequelize = require("./config/database");
-const Hotel = require('./models/Hotel');
-const Room = require('./models/Room');
 const hotelRoutes = require('./routes/hotelRoutes');
+const authRoutes = require('./routes/authRoutes');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const app = express();
-require('dotenv').config();
-
-
 
 app.use(express.json());
 
-app.use('/api/hotels', hotelRoutes)
+app.use('/api/hotels', hotelRoutes);
+app.use('/api/auth', authRoutes);
 
+app.use((err, req, res, next) => {
+    res.status(500).json({ message: err.message });
+});
 
-sequelize.sync({ force: false }) 
+sequelize.sync({ force: false })
   .then(() => {
     app.listen(8000, () => {
       console.log('Server is running on port 8000');

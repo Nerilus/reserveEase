@@ -35,7 +35,8 @@ const Hotel = sequelize.define('Hotel', {
     allowNull: false
   },
   description: {
-    type: DataTypes.TEXT
+    type: DataTypes.TEXT,
+    allowNull: false
   },
   rating: {
     type: DataTypes.FLOAT,
@@ -55,13 +56,15 @@ const Hotel = sequelize.define('Hotel', {
     type: DataTypes.BOOLEAN,
     defaultValue: false
   },
-  created_at: {
+  createdAt: {
     type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
+    defaultValue: DataTypes.NOW,
+    field: 'created_at'
   },
-  updated_at: {
+  updatedAt: {
     type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
+    defaultValue: DataTypes.NOW,
+    field: 'updated_at'
   }
 }, {
   tableName: 'hotels',
