@@ -48,6 +48,8 @@ CREATE TABLE IF NOT EXISTS users (
   phone VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   is_admin BOOLEAN DEFAULT FALSE,
+  reset_password_token  VARCHAR(255),
+  reset_password_expires VARCHAR(255),
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
