@@ -3,6 +3,9 @@ const sequelize = require("./config/database");
 const hotelRoutes = require('./routes/hotelRoutes');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const roomRoutes = require('./routes/roomRoutes');
+const morgan = require('morgan'); // Importez morgan
+
 
 const dotenv = require('dotenv');
 
@@ -10,11 +13,14 @@ dotenv.config();
 
 const app = express();
 
+app.use(morgan('combined')); // Utilisez morgan pour la journalisation
 app.use(express.json());
 
 app.use('/api/hotels', hotelRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/auth', userRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/room', roomRoutes);
+
 
 
 app.use((err, req, res, next) => {
