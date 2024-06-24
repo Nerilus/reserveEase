@@ -6,9 +6,37 @@ const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 
 
+
+exports.login = async (req, res, next) => {
+  const { username, password } = req.body;
+
+  try {
+    const user = await User.findOne({ where: { username } });
+
+    if (user) {
+      const validity = await bcrypt.compare(password, user.password);
+
+      if (!validity) {
+        res.status(400).json("wrong password");
+      } else {
+        const token = jwt.sign(
+          { username: user.username, id: user.id, isAdmin: user.is_admin },
+          process.env.JWTKEY,
+          { expiresIn: "1h" }
+        );
+        res.status(200).json({ user, token });
+      }
+    } else {
+      res.status(404).json("User not found");
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
 exports.register = async (req, res, next) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, email, country, city, phone, is_admin } = req.body;
 
     // Vérification si l'utilisateur existe déjà
     const oldUser = await User.findOne({ where: { username } });
@@ -19,14 +47,21 @@ exports.register = async (req, res, next) => {
     // Hachage du mot de passe
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
-    req.body.password = hash;
 
     // Création de l'utilisateur
-    const newUser = await User.create(req.body);
+    const newUser = await User.create({
+      username,
+      password: hash,
+      email,
+      country,
+      city,
+      phone,
+      is_admin: is_admin || false 
+    });
 
     // Génération du token JWT
     const token = jwt.sign(
-      { username: newUser.username, id: newUser.id },
+      { username: newUser.username, id: newUser.id, isAdmin: newUser.is_admin },
       process.env.JWTKEY,
       { expiresIn: "1h" }
     );
@@ -36,35 +71,6 @@ exports.register = async (req, res, next) => {
     res.status(500).json({ message: error.message });
   }
 };
-
-
-exports.login = async (req, res, next) => {
-   const {username, password} = req.body;
-
-   try{
-    const user = await User.findOne({ username: username});
-
-    if (user){
-      const validity = await bcrypt.compare(password, user.password);
-
-      if (!validity){
-        res.status(400).json("wrong password")
-      } else {
-        const token = jwt.sign(
-          {username : user.username, id: user._id},
-          process.env.JWTKEY,
-          { expiresIn: "1h"}
-        );
-        res.status(200).json({user, token});
-      }
-    } else {
-      res.status(404).json("User not found")
-    }
-   } catch (err){
-    res.status(500).json(err);
-   }
-};
-
 
 exports.forgotPassword = async (req, res, next) => {
     try {
