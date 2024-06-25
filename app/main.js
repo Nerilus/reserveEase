@@ -13,7 +13,7 @@ dotenv.config();
 
 const app = express();
 
-app.use(morgan('combined')); // Utilisez morgan pour la journalisation
+app.use(morgan('combined')); 
 app.use(express.json());
 
 app.use('/api/hotels', hotelRoutes);
@@ -35,4 +35,4 @@ sequelize.sync({ force: false })
   })
   .catch(err => {
     console.error('Unable to connect to the database:', err);
-  });
+});
