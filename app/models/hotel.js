@@ -1,74 +1,71 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/database");
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
 
 const Hotel = sequelize.define('Hotel', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
-    primaryKey: true
+    primaryKey: true,
   },
   name: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   type: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   city: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   address: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   distance: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   photos: {
-    type: DataTypes.ARRAY(DataTypes.STRING)
+    type: DataTypes.ARRAY(DataTypes.TEXT),
   },
   title: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   description: {
     type: DataTypes.TEXT,
-    allowNull: false
+    allowNull: false,
   },
   rating: {
     type: DataTypes.FLOAT,
     validate: {
       min: 0,
-      max: 5
-    }
-  },
-  rooms: {
-    type: DataTypes.ARRAY(DataTypes.STRING)
+      max: 5,
+    },
   },
   cheapest_price: {
     type: DataTypes.FLOAT,
-    allowNull: false
+    allowNull: false,
   },
   featured: {
     type: DataTypes.BOOLEAN,
-    defaultValue: false
+    defaultValue: false,
   },
   createdAt: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
-    field: 'created_at'
+    field: 'created_at',
   },
   updatedAt: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
-    field: 'updated_at'
-  }
+    field: 'updated_at',
+  },
 }, {
   tableName: 'hotels',
-  timestamps: true
+  timestamps: true,
 });
 
 module.exports = Hotel;
