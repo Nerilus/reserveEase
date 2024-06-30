@@ -1,0 +1,29 @@
+/* Navbar.css */
+
+nav {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+  }
+  
+  li {
+    margin-right: 10px;
+  }
+  
+  li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  li a:hover {
+    background-color: #555;
+  }
+  

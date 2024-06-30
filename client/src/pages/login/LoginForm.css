@@ -1,0 +1,118 @@
+/* Style général de la page de connexion */
+.page-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+  font-family: 'Arial', sans-serif;
+}
+
+/* Conteneur principal du formulaire de connexion */
+.login-container {
+  max-width: 400px;
+  width: 100%;
+  padding: 40px;
+  background-color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Animation de fade-in */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+/* Titre principal */
+.title-regular {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.title-regular span {
+  color: #007bff;
+}
+
+/* Titre du formulaire */
+.box-model h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+/* Style des champs du formulaire */
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Bouton de soumission */
+.bloc-btn button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.bloc-btn button:hover {
+  background-color: #0056b3;
+}
+
+/* Message d'erreur */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+  animation: shake 0.3s;
+}
+
+/* Animation de shake pour le message d'erreur */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+/* Alignement central des champs */
+.fields-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.fields-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.mb-4 {
+  margin-bottom: 20px;
+}
