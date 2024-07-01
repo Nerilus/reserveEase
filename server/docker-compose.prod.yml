@@ -47,12 +47,13 @@ services:
       - ./certbot/www:/var/www/certbot
     restart: always
     depends_on:
-     - your_service_name
+      - api
     ports:
-     - 80:80
-     - 443:443
+      - "8080:80"
+      - "8443:443"
     networks:
-     - mynetwork
+      - mynetwork
+
   certbot:
     image: certbot/certbot
     container_name: certbot
@@ -62,10 +63,10 @@ services:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
     command: certonly --webroot -w /var/www/certbot --force-renewal --email email_name -d domain_name --agree-tos
-      
+
 networks:
-   mynetwork:
-     driver: bridge
+  mynetwork:
+    driver: bridge
+
 volumes:
   postgres_data:
- 
