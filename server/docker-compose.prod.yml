@@ -39,17 +39,33 @@ services:
       - db
 
   nginx:
+    container_name: nginx
     image: nginx:latest
-    ports:
-      - "8181:80"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - /etc/nginx/conf.d
-      - /etc/nginx/sites-available
-      - /etc/nginx/sites-enabled
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    restart: always
     depends_on:
-      - api  
-
+     - your_service_name
+    ports:
+     - 80:80
+     - 443:443
+    networks:
+     - mynetwork
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    networks:
+      - mynetwork
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email email_name -d domain_name --agree-tos
+      
+networks:
+   mynetwork:
+     driver: bridge
 volumes:
   postgres_data:
  
