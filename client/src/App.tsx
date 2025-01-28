@@ -16,19 +16,18 @@ const App: React.FC = () => {
   return (
     <Router>
       <NavBar/>
-    <AuthProvider>
       <Routes>
         <Route path="/" element={<HotelList />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegisterForm baseUrl={baseUrl} />} />
         {/* <Route path="/hotels" element={<HotelList />} /> */}
         {/* Utilisation de ProtectedRoute pour une création d'hôtel réservée aux administrateurs */}
-        {/* <ProtectedRoute path="/create-hotel" adminOnly>
-          <CreateHotel />
-        </ProtectedRoute> */}
+      
+        <Route path="/create" element={<CreateHotel />} />
+          
+    
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-    </AuthProvider>
   </Router>
   );
 }

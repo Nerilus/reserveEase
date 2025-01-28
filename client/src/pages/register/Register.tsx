@@ -45,7 +45,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({baseUrl}) => {
   return (
     <div className='vh-100 page page-register page-log-reg flex-center'>
   <div className='register-container'>
-    <h2 className="title-regular text-center">Bienvenue sur <br /><span>ColoCount</span></h2>
+    <h2 className="title-regular text-center">Bienvenue sur <br /><span>ReserveEase
+    </span></h2>
     <div className="box-shadow-1 box-model">
       <h1 className="text-center">S'inscrire</h1>
       <form onSubmit={handleSubmit}>
