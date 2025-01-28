@@ -2,12 +2,11 @@ version: '3.8'
 
 services:
   api:
-    build: .
+    build: ./server  
     ports:
       - "8000:8000"
     volumes:
-      - .:/app
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro  # Montez le fichier de configuration Nginx en lecture seule dans le conteneur Nginx
+      - ./server:/app  
       - .env:/app/.env
     environment:
       DB_USERNAME: ${DB_USERNAME}
@@ -17,8 +16,6 @@ services:
       DB_PORT: ${DB_PORT}
     depends_on:
       - db
-    networks:
-      - mynetwork
 
   db:
     image: postgres:13
@@ -32,8 +29,17 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./migration/dump.sql:/docker-entrypoint-initdb.d/dump.sql:ro
-    networks:
-      - mynetwork
+  client:
+      build: ./client  
+      ports:
+        - "5173:5173"
+      volumes:
+        - ./client:/app  
+        - /app/node_modules
+      depends_on:
+        - api
+      environment:
+        - WDS_SOCKET_PORT=5173 
 
   adminer:
     image: adminer
@@ -42,25 +48,6 @@ services:
       - "8282:8080"
     depends_on:
       - db
-    networks:
-      - mynetwork
-
-  nginx:
-    container_name: nginx
-    image: nginx:latest
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro  
-    restart: always
-    ports:
-      - "8080:80"
-    depends_on:
-      - api
-    networks:
-      - mynetwork
-
-networks:
-  mynetwork:
-    driver: bridge
 
 volumes:
   postgres_data:
