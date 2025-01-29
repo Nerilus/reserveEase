@@ -1,4 +1,4 @@
-name: Build and Push Docker Image to Docker Hub
+name: Build and Push Docker Images to Docker Hub
 
 on:
   push:
@@ -30,10 +30,17 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build and push Docker image
+    # Build and push the 'server' (API) image
+    - name: Build and push server Docker image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/my-image:${{ github.sha }} .
-        docker push ${{ secrets.DOCKER_USERNAME }}/my-image:${{ github.sha }}
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/server-image:${{ github.sha }} ./server
+        docker push ${{ secrets.DOCKER_USERNAME }}/server-image:${{ github.sha }}
+
+    # Build and push the 'client' image
+    - name: Build and push client Docker image
+      run: |
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/client-image:${{ github.sha }} ./client
+        docker push ${{ secrets.DOCKER_USERNAME }}/client-image:${{ github.sha }}
 
     - name: Log out from Docker Hub
       run: docker logout
